@@ -37,7 +37,7 @@ static bool RectOverlap(Rectangle r1, Rectangle r2) {
     return dx < 0 && dy < 0;
 }
 
-class PongClone {
+class PongGame {
 public:
     Texture2D bg, leftTex, rightTex, ballTex;
     Vector2 leftPaddle, rightPaddle;
@@ -136,7 +136,7 @@ public:
             if (b.pos.y <= 0 || b.pos.y + b.tex.height >= SCREEN_HEIGHT)
                 b.vel.y *= -1;
 
-            const float overlap = -45.0f;
+            const float overlap = -40.0f;
             Rectangle leftHit = { leftBox.x - overlap, leftBox.y - overlap,
                                   leftBox.width + overlap * 2, leftBox.height + overlap * 2 };
             Rectangle rightHit = { rightBox.x - overlap, rightBox.y - overlap,
@@ -173,14 +173,19 @@ public:
             int textWidth = MeasureText(msg, fontSize);
             DrawText(msg, SCREEN_WIDTH / 2 - textWidth / 2, SCREEN_HEIGHT / 2 - fontSize / 2, fontSize, RED);
 
-            const char* subMsg = "Press [ENTER] to Restart\nPress [1], [2], or [3] to Change Pumpkin Count in game!";
+            const char* subMsg = "Press [ENTER] to Restart\nPress [1], [2], or [3] to Change Pumpkin Count \n";
             int subFontSize = 20;
             int subTextWidth = MeasureText(subMsg, subFontSize);
             DrawText(subMsg, SCREEN_WIDTH / 2 - subTextWidth / 2, SCREEN_HEIGHT / 2 + 40, subFontSize, WHITE);
         }
 
-        DrawText(singlePlayer ? "Single Player [T]: ON" : "Single Player [T]: OFF",
-                 20, SCREEN_HEIGHT - 40, 20, WHITE);
+        const char* modeMsg = singlePlayer ? "Single Player [T]: ON" : "Single Player [T]: OFF";
+        int fontSize = 20;
+        int textWidth = MeasureText(modeMsg, fontSize);
+        
+        DrawText(modeMsg, SCREEN_WIDTH / 2 - textWidth / 2, 20, fontSize, WHITE);
+
+
         EndDrawing();
     }
 
@@ -195,7 +200,7 @@ public:
 
 int main(void)
 {
-    PongClone game;
+    PongGame game;
     game.Init();
 
     while (gAppStatus == RUNNING)
