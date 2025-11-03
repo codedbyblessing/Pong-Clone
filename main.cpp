@@ -1,5 +1,5 @@
 /**
-* Author: [Blessing Yeboah
+* Author: Blessing Yeboah
 * Assignment: Pong Clone
 * Date due: 2025-10-13, 11:59pm
 * I pledge that I have completed this assignment without
@@ -93,7 +93,7 @@ public:
         if (IsKeyPressed(KEY_Q) || WindowShouldClose())
             gAppStatus = EXIT;
     }
-
+ 
     void Update(float dt) {
         if (gameOver) {
             if (IsKeyPressed(KEY_ENTER)) Reset();
@@ -103,9 +103,13 @@ public:
         // Left paddle (player 1)
         if (IsKeyDown(KEY_W)) leftPaddle.y -= 400 * dt;
         if (IsKeyDown(KEY_S)) leftPaddle.y += 400 * dt;
+        /*
+
+        */
         leftPaddle.y = Clamp(leftPaddle.y, 0.0f, (float)SCREEN_HEIGHT - leftTex.height);
 
         // Right paddle
+       
         if (singlePlayer) {
             static bool movingDown = true;
             float speed = 200.0f;
@@ -141,7 +145,10 @@ public:
                                   leftBox.width + overlap * 2, leftBox.height + overlap * 2 };
             Rectangle rightHit = { rightBox.x - overlap, rightBox.y - overlap,
                                    rightBox.width + overlap * 2, rightBox.height + overlap * 2 };
-
+            
+            /*
+                
+            */
             if (RectOverlap(ballBox, leftHit)) { b.vel.x = fabs(b.vel.x); b.lastHit = 1; }
             if (RectOverlap(ballBox, rightHit)) { b.vel.x = -fabs(b.vel.x); b.lastHit = 2; }
 
@@ -164,9 +171,11 @@ public:
                 DrawTexture(b.tex, b.pos.x, b.pos.y, WHITE);
 
         DrawRectangle(SCREEN_WIDTH / 2 - 2, 0, 4, SCREEN_HEIGHT, WHITE);
+
         DrawText(TextFormat("%d", leftScore), SCREEN_WIDTH / 4, 20, 40, WHITE);
         DrawText(TextFormat("%d", rightScore), SCREEN_WIDTH * 3 / 4, 20, 40, WHITE);
 
+     
         if (gameOver) {
             const char* msg = (winner == 1 ? "Foxy Wins!" : "Chica Wins!");
             int fontSize = 40;
@@ -183,6 +192,7 @@ public:
         int fontSize = 20;
         int textWidth = MeasureText(modeMsg, fontSize);
         
+     
         DrawText(modeMsg, SCREEN_WIDTH / 2 - textWidth / 2, 20, fontSize, WHITE);
 
 
@@ -196,6 +206,8 @@ public:
         UnloadTexture(ballTex);
         CloseWindow();
     }
+
+
 };
 
 int main(void)
